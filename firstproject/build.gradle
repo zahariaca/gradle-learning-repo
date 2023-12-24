@@ -4,3 +4,36 @@
  * This is a general purpose Gradle build.
  * To learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.5/samples
  */
+task firstTask {
+    println 'Gradle rocks!'
+    doFirst() {
+        println 'First'
+    }
+    doLast() {
+        println 'Last'
+    }
+}
+
+
+task deployToStaging() {
+	doLast() {
+		println "Deploying to staging"
+	}
+}
+
+task deployToProd() {
+	doLast() {
+		println "Deploying to prod"
+	}
+}
+
+task cleanupFiles() {
+    doLast() {
+        println "Cleaning files"
+    }
+}
+
+deployToProd.dependsOn deployToStaging
+deployToProd.finalizedBy cleanupFiles
+
+defaultTasks "deployToStaging"
